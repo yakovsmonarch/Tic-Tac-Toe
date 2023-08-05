@@ -21,7 +21,7 @@ class Board{
         this.#arrBoard[indexBoard] = 1;
         this.#printFigure(this.#stepGamer, btnField);
         if(this.#checkVictory(1)){
-            alert('Крестики победили!');
+            alert('Крестики победили! Начните новую игру.');
             return;
         }
 
@@ -30,7 +30,7 @@ class Board{
         const btnComputer = this.#getBtn(responseIndexMove);
         this.#printFigure(this.stepGame, btnComputer);
         if(this.#checkVictory(-1)){
-            alert('Нолики победили!');
+            alert('Нолики победили! Начните новую игру.');
             return;
         }
     }
