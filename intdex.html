@@ -33,13 +33,13 @@
             margin: 0;
         }
         .btn-field-zero {
-            background-image: url("https://sun9-22.userapi.com/s/v1/if1/A90wrXc4gemKtqBd4568MS3vBNMmvxPx__pRWwhOD77WseD7cJtggpcaAi0PwVqM9NBOAj8C.jpg?size=400x400&quality=96&crop=3,4,603,603&ava=1");
+            background-image: url("https://res.cloudinary.com/lmru/image/upload/f_auto,q_90,w_1200,h_1200,c_pad,b_white,d_photoiscoming.png/LMCode/15632730.jpg");
             background-size: 160px;
             background-repeat: no-repeat;
         background-position: center center;
         }
         .btn-field-x {
-            background-image: url("https://sun1-88.userapi.com/s/v1/ig2/9EeQBOHtWxYXrSL4jSy9xyP3nBmKWCBKxCgeA6p7k_DVHYt9brkP9bfXmhtYSiZpHWpehZOv4DlIiV78GbFDBDyP.jpg?size=400x400&quality=95&crop=119,143,864,864&ava=1");
+            background-image: url("https://banner2.cleanpng.com/20180428/psw/kisspng-line-angle-point-symmetry-white-5ae4df72794a47.4175786815249488504968.jpg");
             background-size: 160px;
             background-repeat: no-repeat;
         background-position: center center;
@@ -152,6 +152,7 @@
 
     class ComputerGamer{
         #arrBoard;
+        #counterRecursion = 0;
 
         constructor(arrBoard){
             this.#arrBoard = arrBoard;
@@ -160,17 +161,6 @@
         responseMove(){
             let resultIndex = this.#generateStep();
             return resultIndex;
-        }
-
-        #generateStep(){
-            const arrFreeFields = [];
-            for(let i = 0; i < this.#arrBoard.length; i++){
-                if(this.#arrBoard[i] === 0){
-                    arrFreeFields.push(i);
-                }
-            }
-            const indexFreeFields = this.#getRandomNumber(0, arrFreeFields.length);
-            return arrFreeFields[indexFreeFields];
         }
 
         validateStep(stepGame){
@@ -236,6 +226,55 @@
             min = Math.ceil(min)
             max = Math.floor(max)
             return Math.floor(Math.random() * (max - min) + min)
+        }
+
+        #generateRandomStep(){
+            const arrFreeFields = [];
+            for(let i = 0; i < this.#arrBoard.length; i++){
+                if(this.#arrBoard[i] === 0){
+                    arrFreeFields.push(i);
+                }
+            }
+            const indexFreeFields = this.#getRandomNumber(0, arrFreeFields.length);
+            return arrFreeFields[indexFreeFields];
+        }
+
+        #generateStep(){
+            let result = -10;
+            let indexArr = -1;
+
+            for(let i = 0; i < this.#arrBoard.length; i++){
+                if(this.#arrBoard[i] !== 0) continue;
+
+                this.#arrBoard[i] = -1;
+                let temp = this.#appraisalMove(-1);
+                if(temp > result){
+                    result = temp;
+                    indexArr = i;
+                }
+                this.#arrBoard[i] = 0;
+            }
+
+            return indexArr;
+        }
+
+        #appraisalMove(figure){
+            if(this.checkVictory(figure)){
+                return 1;
+            }
+            let result = -10;
+            for(let i = 0; i < this.#arrBoard.length; i++){
+                if(this.#arrBoard[i] !== 0) continue;
+
+                this.#arrBoard[i] = -figure;
+                let res = -(this.#appraisalMove(-figure));
+                this.#arrBoard[i] = 0;
+                if(res > result){
+                    result = res;
+                }
+            }
+
+            return result;
         }
     }
 
