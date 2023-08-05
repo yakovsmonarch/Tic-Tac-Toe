@@ -5,25 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Крести-нолики</title>
     <link rel='stylesheet' href="css/main.css">
-    <script defer src="js/main.js"></script>
 </head>
 <body>
     <div class="head-game">Крести-нолики</div>
     <div class="board">
         <div>
-            <button onclick="board.stepGame(0, this)" class="btn-field"></button>
-            <button onclick="board.stepGame(1, this)" class="btn-field"></button>
-            <button onclick="board.stepGame(2, this)" class="btn-field"></button>
+            <button id="0" onclick="board.stepGame(0, this)" class="btn-field"></button>
+            <button id="1" onclick="board.stepGame(1, this)" class="btn-field"></button>
+            <button id="2" onclick="board.stepGame(2, this)" class="btn-field"></button>
         </div>
         <div>
-            <button onclick="board.stepGame(3, this)" class="btn-field"></button>
-            <button onclick="board.stepGame(4, this)" class="btn-field"></button>
-            <button onclick="board.stepGame(5, this)" class="btn-field"></button>
+            <button id="3" onclick="board.stepGame(3, this)" class="btn-field"></button>
+            <button id="4" onclick="board.stepGame(4, this)" class="btn-field"></button>
+            <button id="5" onclick="board.stepGame(5, this)" class="btn-field"></button>
         </div>
         <div>
-            <button onclick="board.stepGame(6, this)" class="btn-field"></button>
-            <button onclick="board.stepGame(7, this)" class="btn-field"></button>
-            <button onclick="board.stepGame(8, this)" class="btn-field"></button>
+            <button id="6" onclick="board.stepGame(6, this)" class="btn-field"></button>
+            <button id="7" onclick="board.stepGame(7, this)" class="btn-field"></button>
+            <button id="8" onclick="board.stepGame(8, this)" class="btn-field"></button>
         </div>
     </div>
     <div class="panel-btn">
@@ -31,5 +30,6 @@
             Новая игра
         </button>
     </div>
+    <script src="js/main.js"></script>
 </body>
 </html>
