@@ -94,14 +94,14 @@
             if(this.#gameOver){
                 return;
             }
-            if(this.#validateStep(indexBoard) === false){
+            if(this.#computerGame.validateStep(indexBoard) === false){
                 console.log('Неправильный ход!');
                 return;
             }
 
             this.#arrBoard[indexBoard] = 1;
             this.#printFigure(this.#stepGamer, btnField);
-            if(this.#checkVictory(1)){
+            if(this.#computerGame.checkVictory(1)){
                 alert('Крестики победили! Начните новую игру.');
                 this.#gameOver = true;
                 return;
@@ -111,7 +111,7 @@
             this.#arrBoard[responseIndexMove] = -1;
             const btnComputer = this.#getBtn(responseIndexMove);
             this.#printFigure(this.stepGame, btnComputer);
-            if(this.#checkVictory(-1)){
+            if(this.#computerGame.checkVictory(-1)){
                 alert('Нолики победили! Начните новую игру.');
                 this.#gameOver = true;
                 return;
@@ -143,16 +143,41 @@
             }
         }
 
-        #validateStep(stepGame){
-            return this.#arrBoard[stepGame] === 0;
-        }
-
         #getBtn(indexBoard){
             const btn = document.getElementById(indexBoard);
             return btn;
         }
 
-        #checkVictory(figure){
+    }
+
+    class ComputerGamer{
+        #arrBoard;
+
+        constructor(arrBoard){
+            this.#arrBoard = arrBoard;
+        }
+
+        responseMove(){
+            let resultIndex = this.#generateStep();
+            return resultIndex;
+        }
+
+        #generateStep(){
+            const arrFreeFields = [];
+            for(let i = 0; i < this.#arrBoard.length; i++){
+                if(this.#arrBoard[i] === 0){
+                    arrFreeFields.push(i);
+                }
+            }
+            const indexFreeFields = this.#getRandomNumber(0, arrFreeFields.length);
+            return arrFreeFields[indexFreeFields];
+        }
+
+        validateStep(stepGame){
+            return this.#arrBoard[stepGame] === 0;
+        }
+
+        checkVictory(figure){
             let sum = 0;
             let counter = 0;
 
@@ -205,31 +230,6 @@
             if(sum === 3) return true;
 
             return false;
-        }
-
-    }
-
-    class ComputerGamer{
-        #arrBoard;
-
-        constructor(arrBoard){
-            this.#arrBoard = arrBoard;
-        }
-
-        responseMove(){
-            let resultIndex = this.#generateStep();
-            return resultIndex;
-        }
-
-        #generateStep(){
-            const arrFreeFields = [];
-            for(let i = 0; i < this.#arrBoard.length; i++){
-                if(this.#arrBoard[i] === 0){
-                    arrFreeFields.push(i);
-                }
-            }
-            const indexFreeFields = this.#getRandomNumber(0, arrFreeFields.length);
-            return arrFreeFields[indexFreeFields];
         }
 
         #getRandomNumber(min, max) {
