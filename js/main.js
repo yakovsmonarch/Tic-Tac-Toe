@@ -20,7 +20,7 @@ class Board{
 
         this.#arrBoard[indexBoard] = 1;
         this.#printFigure(this.#stepGamer, btnField);
-        if(this.#checkVictory(1) === 1){
+        if(this.#checkVictory(1)){
             alert('Крестики победили!');
             return;
         }
@@ -29,7 +29,7 @@ class Board{
         this.#arrBoard[responseIndexMove] = -1;
         const btnComputer = this.#getBtn(responseIndexMove);
         this.#printFigure(this.stepGame, btnComputer);
-        if(this.#checkVictory(-1) === -1){
+        if(this.#checkVictory(-1)){
             alert('Нолики победили!');
             return;
         }
@@ -68,11 +68,9 @@ class Board{
         return btn;
     }
 
-    // 0 - ничья, 1 - крестики выиграли, -1 - нолики выиграли.
     #checkVictory(figure){
         let sum = 0;
         let counter = 0;
-        let result = 0;
 
         for(let i = 0; i < this.#arrBoard.length; i++){
             if(this.#arrBoard[i] === figure){
@@ -83,7 +81,7 @@ class Board{
 
             if(counter === 3){
                 if(sum === 3){
-                    return this.#arrBoard[i];
+                    return true;
                 }else{
                     counter = 0;
                     sum = 0;
@@ -100,7 +98,7 @@ class Board{
     
                 if(counter === 3){
                     if(sum === 3){
-                        return this.#arrBoard[i];
+                        return true;
                     }else{
                         counter = 0;
                         sum = 0;
@@ -108,9 +106,21 @@ class Board{
                 }
             }
         }
-        
+        for(let i = 0; i < this.#arrBoard.length; i += 4){
+            if(this.#arrBoard[i] === figure){
+                sum++;
+            }
+        }
+        if(sum === 3) return true;
+        sum = 0;
+        for(let i = 2; i < 7; i += 2){
+            if(this.#arrBoard[i] === figure){
+                sum++;
+            }
+        }
+        if(sum === 3) return true;
 
-        return result;
+        return false;
     }
 
 }
