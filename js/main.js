@@ -72,6 +72,8 @@ class Board{
     #checkVictory(figure){
         let sum = 0;
         let counter = 0;
+        let result = 0;
+
         for(let i = 0; i < this.#arrBoard.length; i++){
             if(this.#arrBoard[i] === figure){
                 sum++;
@@ -88,7 +90,27 @@ class Board{
                 }
             }
         }
-        return 0;
+        for(let j = 0; j < 3; j++){
+            for(let i = j; i < this.#arrBoard.length; i += 3){
+                if(this.#arrBoard[i] === figure){
+                    sum++;
+                }
+    
+                counter++;
+    
+                if(counter === 3){
+                    if(sum === 3){
+                        return this.#arrBoard[i];
+                    }else{
+                        counter = 0;
+                        sum = 0;
+                    }
+                }
+            }
+        }
+        
+
+        return result;
     }
 
 }
