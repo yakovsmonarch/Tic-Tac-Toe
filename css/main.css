@@ -3,7 +3,7 @@ body{
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: coral;
+    background-color: white;
 }
 
 .head-game {
@@ -24,4 +24,14 @@ body{
     height: 160px;
     padding: 0;
     margin: 0;
+}
+.btn-field-zero {
+    background-image: url("../img/0.png");
+}
+.btn-field-x {
+    background-image: url("../img/x.png");
+}
+
+.panel-btn {
+    text-align: center;
 }

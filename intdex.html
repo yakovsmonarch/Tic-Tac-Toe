@@ -4,27 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Крести-нолики</title>
-    <script defer src="js/main.js"></script>
     <link rel='stylesheet' href="css/main.css">
+    <script defer src="js/main.js"></script>
 </head>
 <body>
     <div class="head-game">Крести-нолики</div>
     <div class="board">
         <div>
-            <button class="btn-field"></button>
-            <button class="btn-field"></button>
-            <button class="btn-field"></button>
+            <button onclick="board.stepGame(0, this)" class="btn-field"></button>
+            <button onclick="board.stepGame(1, this)" class="btn-field"></button>
+            <button onclick="board.stepGame(2, this)" class="btn-field"></button>
         </div>
         <div>
-            <button class="btn-field"></button>
-            <button class="btn-field"></button>
-            <button class="btn-field"></button>
+            <button onclick="board.stepGame(3, this)" class="btn-field"></button>
+            <button onclick="board.stepGame(4, this)" class="btn-field"></button>
+            <button onclick="board.stepGame(5, this)" class="btn-field"></button>
         </div>
         <div>
-            <button class="btn-field"></button>
-            <button class="btn-field"></button>
-            <button class="btn-field"></button>
+            <button onclick="board.stepGame(6, this)" class="btn-field"></button>
+            <button onclick="board.stepGame(7, this)" class="btn-field"></button>
+            <button onclick="board.stepGame(8, this)" class="btn-field"></button>
         </div>
+    </div>
+    <div class="panel-btn">
+        <button onclick="board.clear()">
+            Новая игра
+        </button>
     </div>
 </body>
 </html>
