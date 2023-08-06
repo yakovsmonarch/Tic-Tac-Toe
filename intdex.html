@@ -160,6 +160,7 @@
 
         responseMove(){
             let resultIndex = this.#generateStep();
+            // let resultIndex = this.#generateRandomStep();
             return resultIndex;
         }
 
@@ -188,6 +189,8 @@
                 }
             }
             for(let j = 0; j < 3; j++){
+                sum = 0;
+                counter = 0;
                 for(let i = j; i < this.#arrBoard.length; i += 3){
                     if(this.#arrBoard[i] === figure){
                         sum++;
@@ -243,26 +246,33 @@
             let result = -10;
             let indexArr = -1;
 
+            console.clear();
+
             for(let i = 0; i < this.#arrBoard.length; i++){
                 if(this.#arrBoard[i] !== 0) continue;
 
                 this.#arrBoard[i] = -1;
                 let temp = this.#appraisalMove(-1);
+
+                console.log(`${i} - ${temp}`);
+
                 if(temp > result){
                     result = temp;
                     indexArr = i;
                 }
                 this.#arrBoard[i] = 0;
             }
-
             return indexArr;
         }
 
         #appraisalMove(figure){
             if(this.checkVictory(figure)){
-                return 1;
+                return -figure;
             }
-            let result = -10;
+            if(this.#arrBoard.indexOf(0) === -1){
+                return 0;
+            }
+            let result = -1;
             for(let i = 0; i < this.#arrBoard.length; i++){
                 if(this.#arrBoard[i] !== 0) continue;
 
