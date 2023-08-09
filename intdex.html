@@ -75,6 +75,8 @@
         </button>
     </div>
     <script>
+        const Figures = {Empty: 0, X: 1, Y: 2};
+
         class Board{
         #arrBoard;
         #stepGamer;
@@ -85,7 +87,7 @@
         #gameOver = false;
 
         constructor(stepGamer){
-            this.#arrBoard = new Array(9).fill(0);
+            this.#arrBoard = new Array(9).fill(Figures.Empty);
             this.#stepGamer = stepGamer;
             this.#computerGame = new ComputerGamer(this.#arrBoard);
         }
@@ -99,19 +101,20 @@
                 return;
             }
 
-            this.#arrBoard[indexBoard] = 1;
+            this.#arrBoard[indexBoard] = Figures.X;
+
             this.#printFigure(this.#stepGamer, btnField);
-            if(this.#computerGame.checkVictory(1)){
+            if(this.#computerGame.checkVictory(Figures.X)){
                 alert('Крестики победили! Начните новую игру.');
                 this.#gameOver = true;
                 return;
             }
 
             const responseIndexMove = this.#computerGame.responseMove();
-            this.#arrBoard[responseIndexMove] = -1;
+            this.#arrBoard[responseIndexMove] = Figures.Y;
             const btnComputer = this.#getBtn(responseIndexMove);
             this.#printFigure(this.stepGame, btnComputer);
-            if(this.#computerGame.checkVictory(-1)){
+            if(this.#computerGame.checkVictory(Figures.Y)){
                 alert('Нолики победили! Начните новую игру.');
                 this.#gameOver = true;
                 return;
@@ -119,7 +122,7 @@
         }
 
         clear(){
-            this.#arrBoard = new Array(9).fill(0);
+            this.#arrBoard = new Array(9).fill(Figures.Empty);
             this.#computerGame = new ComputerGamer(this.#arrBoard);
             this.#gameOver = false;
             const arrBtn = document.getElementsByClassName(this.#classBtnField);
@@ -165,12 +168,13 @@
         }
 
         validateStep(stepGame){
-            return this.#arrBoard[stepGame] === 0;
+            return this.#arrBoard[stepGame] === Figures.Empty;
         }
 
-        checkVictory(figure){
+        checkVictory(flagFigure){
             let sum = 0;
             let counter = 0;
+            const figure = flagFigure ? Figures.X : Figures.Y;
 
             for(let i = 0; i < this.#arrBoard.length; i++){
                 if(this.#arrBoard[i] === figure){
@@ -234,7 +238,7 @@
         #generateRandomStep(){
             const arrFreeFields = [];
             for(let i = 0; i < this.#arrBoard.length; i++){
-                if(this.#arrBoard[i] === 0){
+                if(this.#arrBoard[i] === Figures.Empty){
                     arrFreeFields.push(i);
                 }
             }
@@ -249,10 +253,10 @@
             console.clear();
 
             for(let i = 0; i < this.#arrBoard.length; i++){
-                if(this.#arrBoard[i] !== 0) continue;
+                if(this.#arrBoard[i] !== Figures.Empty) continue;
 
-                this.#arrBoard[i] = -1;
-                let temp = this.#appraisalMove(-1);
+                this.#arrBoard[i] = Figures.Y;
+                let temp = -this.#appraisalMove(true);
 
                 console.log(`${i} - ${temp}`);
 
@@ -260,25 +264,25 @@
                     result = temp;
                     indexArr = i;
                 }
-                this.#arrBoard[i] = 0;
+                this.#arrBoard[i] = Figures.Empty;
             }
             return indexArr;
         }
 
         #appraisalMove(figure){
             if(this.checkVictory(figure)){
-                return -figure;
+                return 1;
             }
-            if(this.#arrBoard.indexOf(0) === -1){
+            if(this.#arrBoard.indexOf(Figures.Empty) === -1){
                 return 0;
             }
             let result = -1;
             for(let i = 0; i < this.#arrBoard.length; i++){
-                if(this.#arrBoard[i] !== 0) continue;
+                if(this.#arrBoard[i] !== Figures.Empty) continue;
 
-                this.#arrBoard[i] = -figure;
-                let res = -(this.#appraisalMove(-figure));
-                this.#arrBoard[i] = 0;
+                this.#arrBoard[i] = figure ? Figures.X : Figures.Y;
+                let res = -(this.#appraisalMove(!figure));
+                this.#arrBoard[i] = Figures.Empty;
                 if(res > result){
                     result = res;
                 }
