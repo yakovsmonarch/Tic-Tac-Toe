@@ -103,7 +103,7 @@
 
             this.#arrBoard[indexBoard] = Figures.X;
 
-            this.#printFigure(this.#stepGamer, btnField);
+            this.#printFigure();
             if(this.#computerGame.checkVictory(Figures.X)){
                 alert('Крестики победили! Начните новую игру.');
                 this.#gameOver = true;
@@ -113,7 +113,7 @@
             const responseIndexMove = this.#computerGame.responseMove();
             this.#arrBoard[responseIndexMove] = Figures.Y;
             const btnComputer = this.#getBtn(responseIndexMove);
-            this.#printFigure(!this.#stepGamer, btnComputer);
+            this.#printFigure();
             if(this.#computerGame.checkVictory(Figures.Y)){
                 alert('Нолики победили! Начните новую игру.');
                 this.#gameOver = true;
