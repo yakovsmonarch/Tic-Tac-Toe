@@ -113,7 +113,7 @@
             const responseIndexMove = this.#computerGame.responseMove();
             this.#arrBoard[responseIndexMove] = Figures.Y;
             const btnComputer = this.#getBtn(responseIndexMove);
-            this.#printFigure(this.stepGame, btnComputer);
+            this.#printFigure(!this.#stepGamer, btnComputer);
             if(this.#computerGame.checkVictory(Figures.Y)){
                 alert('Нолики победили! Начните новую игру.');
                 this.#gameOver = true;
@@ -133,16 +133,21 @@
         }
 
 
-        #printFigure(stepGamer, btnField){
-            if(!btnField) return;
-
-            if(stepGamer === true){
-                btnField.classList.remove(this.#class0);
-                btnField.classList.add(this.#classX);
-                
-            }else{
-                btnField.classList.remove(this.#classX);
-                btnField.classList.add(this.#class0);
+        #printFigure(){
+            for(let i = 0; i < this.#arrBoard.length; i++){
+                const btn = document.getElementById(i);
+                switch(this.#arrBoard[i]){
+                    case 0:
+                        btn.classList.remove(this.#class0);
+                        btn.classList.remove(this.#classX);
+                        break;
+                    case 1:
+                        btn.classList.add(this.#classX);
+                        break;
+                    case 2:
+                        btn.classList.add(this.#class0);
+                        break;
+                }
             }
         }
 
