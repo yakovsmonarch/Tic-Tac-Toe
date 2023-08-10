@@ -20,17 +20,24 @@
         .board {
             display: flex;
             flex-direction: column;
-            width: 488px;
-            height: 484px;
+            width: 100vw;
+            height: 100vh;
             margin-left: auto;
             margin-right: auto;
         }
 
+        .row-field {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+
         .btn-field {
-            width: 160px;
-            height: 160px;
+            width: 10vw;
+            height: 10vh;
             padding: 0;
             margin: 0;
+            border: 1px solid red;
         }
         .btn-field-zero {
             background-image: url("https://res.cloudinary.com/lmru/image/upload/f_auto,q_90,w_1200,h_1200,c_pad,b_white,d_photoiscoming.png/LMCode/15632730.jpg");
@@ -53,17 +60,17 @@
 <body>
     <div class="head-game">Крести-нолики</div>
     <div class="board">
-        <div>
+        <div class="row-field">
             <button id="0" onclick="board.stepGame(0, this)" class="btn-field"></button>
             <button id="1" onclick="board.stepGame(1, this)" class="btn-field"></button>
             <button id="2" onclick="board.stepGame(2, this)" class="btn-field"></button>
         </div>
-        <div>
+        <div class="row-field">
             <button id="3" onclick="board.stepGame(3, this)" class="btn-field"></button>
             <button id="4" onclick="board.stepGame(4, this)" class="btn-field"></button>
             <button id="5" onclick="board.stepGame(5, this)" class="btn-field"></button>
         </div>
-        <div>
+        <div class="row-field">
             <button id="6" onclick="board.stepGame(6, this)" class="btn-field"></button>
             <button id="7" onclick="board.stepGame(7, this)" class="btn-field"></button>
             <button id="8" onclick="board.stepGame(8, this)" class="btn-field"></button>
