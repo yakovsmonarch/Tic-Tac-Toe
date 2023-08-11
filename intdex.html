@@ -20,8 +20,8 @@
         .board {
             display: flex;
             flex-direction: column;
-            width: 100vw;
-            height: 100vh;
+            width: 480px;
+            height: 480px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -33,11 +33,10 @@
         }
 
         .btn-field {
-            width: 10vw;
-            height: 10vh;
+            width: 160px;
+            height: 160px;
             padding: 0;
             margin: 0;
-            border: 1px solid red;
         }
         .btn-field-zero {
             background-image: url("https://res.cloudinary.com/lmru/image/upload/f_auto,q_90,w_1200,h_1200,c_pad,b_white,d_photoiscoming.png/LMCode/15632730.jpg");
@@ -144,14 +143,14 @@
             for(let i = 0; i < this.#arrBoard.length; i++){
                 const btn = document.getElementById(i);
                 switch(this.#arrBoard[i]){
-                    case 0:
+                    case Figures.Empty:
                         btn.classList.remove(this.#class0);
                         btn.classList.remove(this.#classX);
                         break;
-                    case 1:
+                    case Figures.X:
                         btn.classList.add(this.#classX);
                         break;
-                    case 2:
+                    case Figures.Y:
                         btn.classList.add(this.#class0);
                         break;
                 }
@@ -268,7 +267,7 @@
                 if(this.#arrBoard[i] !== Figures.Empty) continue;
 
                 this.#arrBoard[i] = Figures.Y;
-                let temp = -this.#appraisalMove(true);
+                let temp = this.#appraisalMove(false);
 
                 console.log(`${i} - ${temp}`);
 
@@ -285,14 +284,14 @@
             if(this.checkVictory(figure)){
                 return 1;
             }
-            if(this.#arrBoard.indexOf(Figures.Empty) === -1){
+            if(this.#arrBoard.indexOf(Figures.Empty) < 0){
                 return 0;
             }
-            let result = -1;
+            let result = -10;
             for(let i = 0; i < this.#arrBoard.length; i++){
                 if(this.#arrBoard[i] !== Figures.Empty) continue;
 
-                this.#arrBoard[i] = figure ? Figures.X : Figures.Y;
+                this.#arrBoard[i] = figure ? Figures.Y : Figures.X;
                 let res = -(this.#appraisalMove(!figure));
                 this.#arrBoard[i] = Figures.Empty;
                 if(res > result){
