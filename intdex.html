@@ -260,8 +260,8 @@
         #generateStep(){
             let result = -10;
             let indexArr = -1;
+            let arrApraisal = new Array(9).fill('#');
 
-            console.clear();
 
             for(let i = 0; i < this.#arrBoard.length; i++){
                 if(this.#arrBoard[i] !== Figures.Empty) continue;
@@ -269,7 +269,7 @@
                 this.#arrBoard[i] = Figures.Y;
                 let temp = this.#appraisalMove(false);
 
-                console.log(`${i} - ${temp}`);
+                arrApraisal[i] = temp;
 
                 if(temp > result){
                     result = temp;
@@ -277,6 +277,7 @@
                 }
                 this.#arrBoard[i] = Figures.Empty;
             }
+            this.#printApraisal(arrApraisal);
             return indexArr;
         }
 
@@ -300,6 +301,22 @@
             }
 
             return result;
+        }
+
+        #printApraisal(arrApraisal){
+            let counter = 0;
+            let strResult = "";
+            console.clear();
+            for(let i = 0; i < arrApraisal.length; i++){
+                counter++;
+                strResult += arrApraisal[i] + ' ';
+                if(counter === 3){
+                    console.log(strResult);
+                    strResult = '';
+                    counter = 0;
+                }
+            }
+            console.log('--------------------');
         }
     }
 
